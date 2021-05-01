@@ -1,0 +1,8 @@
+tconst	ordering	nconst	category	job	characters
+tt0000001	1	nm0000233	director	\N	\N
+tt0000001	2	nm0000233	writer	\N	\N
+tt0000001	4	nm0004744	producer	\N	\N
+tt0000001	5	nm0000619	actor	\N	["Pumpkin"]
+tt0000001	6	nm0000235	actor	\N	["Mia Wallace"]
+tt0000001	7	nm0000168	actor	\N	["Jules Winnfield"]
+tt0000001	8	nm0000237	actor	\N	["Vincent Vega"]

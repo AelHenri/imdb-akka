@@ -1,0 +1,9 @@
+.bloop
+.metals
+.vscode
+target
+project
+
+src/main/resources/data
+
+*.DS_Store

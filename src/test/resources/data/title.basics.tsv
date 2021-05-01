@@ -1,0 +1,10 @@
+tconst	titleType	primaryTitle	originalTitle	isAdult	startYear	endYear	runtimeMinutes	genres
+tt0000001	movie	Pulp Fiction	Pulp Fiction	0	1994	\N	1	Documentary,Short
+tt0436992	tvSeries	Doctor Who	Doctor Who	0	2005	\N	45	Adventure,Drama,Family
+tt0411008	tvSeries	Lost	Lost	0	2004	2010	44	Adventure,Drama,Fantasy
+tt0417299	tvSeries	Avatar: The Last Airbender	Avatar: The Last Airbender	0	2005	2008	23	Action,Adventure,Animation
+tt1355642	tvSeries	Fullmetal Alchemist: Brotherhood	Hagane no renkinjutsushi	0	2009	2012	24	Action,Adventure,Animation
+tt0903747	tvSeries	Breaking Bad	Breaking Bad	0	2008	2013	49	Crime,Drama,Thriller
+tt0112159	tvSeries	Neon Genesis Evangelion	Shin seiki evangerion	0	1995	1996	24	Action,Animation,Drama
+tt0934814	tvSeries	Chuck	Chuck	0	2007	2012	43	Action,Comedy,Drama
+tt7836688	tvSeries	A Place Further Than the Universe	Sora yori mo Tooi Basho	0	2018	2018	23	Adventure,Animation,Comedy
