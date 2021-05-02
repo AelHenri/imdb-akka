@@ -10,7 +10,7 @@ import com.canal.models._
 object ImdbTsvParser {
 
     private val delimiter: Byte = '\t'
-    private val quoteChar: Byte = '%'
+    private val quoteChar: Byte = 'ˆ'.toByte
     private val escapeChar: Byte = '|'
     private val csvLineScanner = CsvParsing.lineScanner(delimiter=delimiter, quoteChar=quoteChar, escapeChar=escapeChar)
 
@@ -20,28 +20,32 @@ object ImdbTsvParser {
             .via(CsvToMap.toMapAsStrings())
     }
 
-    def mapToPrincipal(principalMap: Map[String, String]): Principal = {
-        Principal(
-            name = principalMap(NAMES_NAME),
-            birthYear = principalMap(NAMES_BIRTHYEAR).toInt,
-            deathYear = principalMap(NAMES_DEATHYEAR).toIntOption,
-            profession = principalMap(NAMES_PROFESSION).split(",").toList
+    def mapToPerson(personMap: Map[String, String]): Person = {
+        Person(
+            id = personMap(NAMES_ID),
+            name = personMap(NAMES_NAME),
+            birthYear = personMap(NAMES_BIRTHYEAR).toIntOption,
+            deathYear = personMap(NAMES_DEATHYEAR).toIntOption,
+            profession = personMap.get(NAMES_PROFESSION).map(_.split(",").toList)
         )
     }
 
-    def mapToTitle(tvSeriesMap: Map[String, String]): Title = {
+    def mapToTitle(titleMap: Map[String, String]): Title = {
         Title(
-            original = tvSeriesMap(TITLES_TITLE),
-            startYear = tvSeriesMap(TITLES_STARTYEAR).toInt,
-            endYear = tvSeriesMap(TITLES_ENDYEAR).toIntOption,
-            genres = tvSeriesMap(TITLES_GENRES).split(",").toList
+            id = titleMap(TITLES_ID),
+            titleType = titleMap(TITLES_TYPE),
+            primary = titleMap(TITLES_PRIMARY),
+            original = titleMap(TITLES_ORIGINAL),
+            startYear = titleMap(TITLES_STARTYEAR).toIntOption,
+            endYear = titleMap(TITLES_ENDYEAR).toIntOption,
+            genres = titleMap.get(TITLES_GENRES).map(_.split(",").toList)
         )
     }
 
     def mapToPrincipalTitleLink(principalTitleMap: Map[String, String]): PrincipalTitleLink = {
         PrincipalTitleLink(
-            principalTitleMap(PRINCIPALS_TID),
-            principalTitleMap(PRINCIPALS_NID)
+            principalTitleMap(PRINCIPALS_NID),
+            principalTitleMap(PRINCIPALS_TID)
         )
     }
 

@@ -5,7 +5,10 @@ import com.typesafe.config.ConfigFactory
 object DataConfig {
     private val config = ConfigFactory.load()
     private val DATA_FOLDER = config.getString("input-data.files.dataFolder")
-    private val getFilePath = (s: String) => DATA_FOLDER + config.getString(s)
+
+    private def getFilePath(s: String) = {
+        sys.env.get("IMDB_DATA_FOLDER").getOrElse(DATA_FOLDER) + config.getString(s)
+    }
 
     val TITLES_FILE = getFilePath("input-data.files.titles")
     val PRINCIPALS_FILE = getFilePath("input-data.files.principals")
@@ -13,7 +16,8 @@ object DataConfig {
     val EPISODES_FILE = getFilePath("input-data.files.episodes")
     
     val TITLES_ID = config.getString("input-data.columns.titles.id")
-    val TITLES_TITLE = config.getString("input-data.columns.titles.title")
+    val TITLES_PRIMARY = config.getString("input-data.columns.titles.primary")
+    val TITLES_ORIGINAL = config.getString("input-data.columns.titles.original")
     val TITLES_TYPE = config.getString("input-data.columns.titles.type")
     val TITLES_STARTYEAR = config.getString("input-data.columns.titles.startYear")
     val TITLES_ENDYEAR = config.getString("input-data.columns.titles.endYear")

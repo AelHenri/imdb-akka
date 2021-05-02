@@ -1,9 +1,17 @@
+# Project and IDE folders
 .bloop
 .metals
 .vscode
 target
-project
+project/*
 
+# Don't ignore
+!project/plugins.sbt
+
+# Data files
 src/main/resources/data
+*.db
+*.db-*
 
+# MacOS files
 *.DS_Store

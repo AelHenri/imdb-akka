@@ -1,9 +1,17 @@
 package com.canal.models
-import com.canal.config.DataConfig._
 
 final case class Principal(
     name: String,
-    birthYear: Int,
+    birthYear: Option[Int],
     deathYear: Option[Int],
-    profession: List[String]
+    profession: Option[List[String]]
 )
+
+object Principal {
+    def fromPerson(person: Person) = Principal(
+        person.name,
+        person.birthYear,
+        person.deathYear,
+        person.profession
+    )
+}

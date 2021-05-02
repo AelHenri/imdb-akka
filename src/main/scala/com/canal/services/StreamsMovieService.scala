@@ -1,4 +1,4 @@
-package com.canal
+package com.canal.services
 
 import akka.stream._
 import akka.stream.scaladsl._
@@ -11,6 +11,7 @@ import scala.util.Success
 import scala.util.Failure
 import com.canal.config.DataConfig._
 import com.canal.models._
+import com.canal.ImdbTsvParser
 
 class StreamsMovieService(implicit system: ActorSystem, materializer: ActorMaterializer, ec: ExecutionContext) extends MovieService{
 
@@ -38,7 +39,7 @@ class StreamsMovieService(implicit system: ActorSystem, materializer: ActorMater
         
         val movieId = titles
             .filter(t => t(TITLES_TYPE) == FILTER_MOVIE)
-            .filter(t => t(TITLES_TITLE) == name)
+            .filter(t => t(TITLES_ORIGINAL) == name || t(TITLES_PRIMARY) == name)
             .map(t => t(TITLES_ID))
             .runWith(Sink.headOption)
         
@@ -49,10 +50,11 @@ class StreamsMovieService(implicit system: ActorSystem, materializer: ActorMater
         
         names
             .via(asyncFilter(n => filterOnFutureSeq(n(NAMES_ID), principalIds)))
-            .map(ImdbTsvParser.mapToPrincipal(_))
+            .map(ImdbTsvParser.mapToPerson(_))
+            .map(Principal.fromPerson(_))
     }
 
-    def topTvSeriesWithGreatestNumberOfEpisodes(topNumber: Int): Source[Title, _] = {
+    def topTvSeriesWithGreatestNumberOfEpisodes(topNumber: Int): Source[TvSeries, _] = {
         val titles = ImdbTsvParser.streamFile(TITLES_FILE)
         val episodes = ImdbTsvParser.streamFile(EPISODES_FILE)
 
@@ -74,9 +76,10 @@ class StreamsMovieService(implicit system: ActorSystem, materializer: ActorMater
             .filter(t => t(TITLES_TYPE) == FILTER_SERIES)
             .via(asyncFilter(t => filterOnFutureSeq(t(TITLES_ID), topTenIds)))
             .map(ImdbTsvParser.mapToTitle(_))
+            .map(TvSeries.fromTitle(_))
     }
 
-    def tvSeriesWithGreatestNumberOfEpisodes(): Source[Title, _] = {
+    def tvSeriesWithGreatestNumberOfEpisodes(): Source[TvSeries, _] = {
         topTvSeriesWithGreatestNumberOfEpisodes(10)
     }
 }

@@ -2,8 +2,11 @@ package com.canal.models
 import com.canal.config.DataConfig._
 
 final case class Title(
+    id: String,
+    titleType: String,
+    primary: String,
     original: String,
-    startYear: Int,
+    startYear: Option[Int],
     endYear: Option[Int],
-    genres: List[String]
+    genres: Option[List[String]]
 )

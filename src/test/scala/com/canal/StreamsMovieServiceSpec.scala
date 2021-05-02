@@ -11,6 +11,7 @@ import scala.concurrent.ExecutionContext
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import models._
+import com.canal.services._
 
 class StreamsMovieServiceSpec extends AnyFlatSpec with should.Matchers {
 
@@ -32,12 +33,12 @@ class StreamsMovieServiceSpec extends AnyFlatSpec with should.Matchers {
         val results: Seq[Principal] = Await.result(futurePrincipals, 3.seconds)
 
         val expected: Seq[Principal] = Seq(
-            Principal("Quentin Tarantino", 1963, None, List("writer", "actor", "producer")),
-            Principal("Uma Thurman",1970,None,List("actress", "soundtrack", "producer")),
-            Principal("John Travolta",1954,None,List("actor", "soundtrack", "producer")),
-            Principal("Lawrence Bender",1957,None,List("producer", "camera_department", "actor")),
-            Principal("Samuel L. Jackson",1948,None,List("actor", "producer", "soundtrack")),
-            Principal("Tim Roth",1961,None,List("actor", "producer", "soundtrack"))
+            Principal("Quentin Tarantino", Some(1963), None, Some(List("writer", "actor", "producer"))),
+            Principal("Uma Thurman",Some(1970),None,Some(List("actress", "soundtrack", "producer"))),
+            Principal("John Travolta",Some(1954),None,Some(List("actor", "soundtrack", "producer"))),
+            Principal("Lawrence Bender",Some(1957),None,Some(List("producer", "camera_department", "actor"))),
+            Principal("Samuel L. Jackson",Some(1948),None,Some(List("actor", "producer", "soundtrack"))),
+            Principal("Tim Roth",Some(1961),None,Some(List("actor", "producer", "soundtrack")))
         )
 
         results should contain theSameElementsAs (expected)
@@ -61,9 +62,9 @@ class StreamsMovieServiceSpec extends AnyFlatSpec with should.Matchers {
         val results = Await.result(futureTopThreeSeries, 3.seconds)
 
         val expected = Seq(
-            Title("Doctor Who", 2005, None, List("Adventure", "Drama", "Family")),
-            Title("Lost", 2004, Some(2010), List("Adventure", "Drama", "Fantasy")),
-            Title("Shin seiki evangerion", 1995, Some(1996), List("Action", "Animation", "Drama"))
+            TvSeries("Doctor Who", Some(2005), None, Some(List("Adventure", "Drama", "Family"))),
+            TvSeries("Lost", Some(2004), Some(2010), Some(List("Adventure", "Drama", "Fantasy"))),
+            TvSeries("Shin seiki evangerion", Some(1995), Some(1996), Some(List("Action", "Animation", "Drama")))
         )
 
         results should contain theSameElementsAs (expected)
