@@ -3,9 +3,9 @@
 ## Goal
 
 Query IMDB tsv files using the Scala library Akka Streams.  
-The given use cases were:
-- As a user, I would like to be able to get a movie's list of principals, from its name.
-- As a user, I would like to be able to get the 10 TV series with the most episodes.
+The current use cases are:
+- Get a movie's list of principals, from its name.
+- Get the 10 TV series with the most episodes.
 
 ## Implementations
 
