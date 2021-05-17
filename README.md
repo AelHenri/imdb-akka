@@ -2,7 +2,9 @@
 
 ## Goal
 
-Query IMDB tsv files using the Scala library Akka Streams.  
+I used this project to learn to use the Akka Streams library, as well as the Slick interaction. 
+
+The goal is to query IMDB tsv files.  
 The current use cases are:
 - Get a movie's list of principals, from its name.
 - Get the 10 TV series with the most episodes.
